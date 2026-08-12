@@ -16,14 +16,24 @@ const prefix = isProjectPage ? '../' : '';
 
 function ensureMainNavigation(nav) {
   if (!nav) return;
-  const internalGithub = [...nav.querySelectorAll('a')].find(a => a.getAttribute('href')?.endsWith('github.html'));
-  if (!internalGithub) {
-    const link = document.createElement('a');
-    link.href = prefix + 'github.html';
-    link.textContent = 'GitHub';
+
+  const links = [...nav.querySelectorAll('a')];
+  const hasHome = links.some(a => a.getAttribute('href')?.endsWith('index.html'));
+  if (!hasHome) {
+    const home = document.createElement('a');
+    home.href = prefix + 'index.html';
+    home.textContent = 'Home';
+    nav.insertBefore(home, nav.firstChild);
+  }
+
+  const hasGithubPage = [...nav.querySelectorAll('a')].some(a => a.getAttribute('href')?.endsWith('github.html'));
+  if (!hasGithubPage) {
+    const github = document.createElement('a');
+    github.href = prefix + 'github.html';
+    github.textContent = 'GitHub';
     const contact = [...nav.querySelectorAll('a')].find(a => a.getAttribute('href')?.endsWith('contact.html'));
-    if (contact) nav.insertBefore(link, contact);
-    else nav.appendChild(link);
+    if (contact) nav.insertBefore(github, contact);
+    else nav.appendChild(github);
   }
 }
 
