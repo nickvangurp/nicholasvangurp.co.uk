@@ -35,17 +35,12 @@ function ensureMainNavigation(nav) {
     if (contact) nav.insertBefore(github, contact);
     else nav.appendChild(github);
   }
+
+  nav.querySelectorAll('a[href*="github.com/nickvangurp"]').forEach(link => link.remove());
 }
 
 ensureMainNavigation(document.querySelector('.nav'));
 ensureMainNavigation(document.querySelector('.mobile-nav'));
-
-const mobileExternalGithub = document.querySelector('.mobile-nav a[href*="github.com/nickvangurp"]');
-if (mobileExternalGithub) {
-  mobileExternalGithub.href = prefix + 'github.html';
-  mobileExternalGithub.removeAttribute('target');
-  mobileExternalGithub.textContent = 'GitHub';
-}
 
 const menuBtn = document.querySelector('.menu');
 const mobileNav = document.querySelector('.mobile-nav');
